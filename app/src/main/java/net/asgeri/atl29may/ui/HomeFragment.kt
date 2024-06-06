@@ -31,6 +31,9 @@ class HomeFragment : Fragment() {
         binding.rvProducts.adapter = productAdapter
         observeData()
 
+        binding.button2.setOnClickListener {
+            viewModel.getWords()
+        }
     }
 
     private fun observeData() {

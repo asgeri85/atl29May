@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.asgeri.atl29may.api.ProductRepository
 import net.asgeri.atl29may.model.ProductResponse
+import net.asgeri.atl29may.model.local.WordEntity
 import javax.inject.Inject
 
 @HiltViewModel
@@ -44,6 +45,20 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
                 Log.e("xeta", e.localizedMessage.toString())
             }
 
+        }
+    }
+
+    fun addWord(wordEntity: WordEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            productRepository.addWordEntity(wordEntity)
+        }
+    }
+
+    fun getWords() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = productRepository.getLocalData()
+
+            Log.e("gelenData", response.toString())
         }
     }
 }
