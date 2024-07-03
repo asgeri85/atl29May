@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import net.asgeri.atl29may.databinding.FragmentHomeBinding
+import net.asgeri.atl29may.databinding.FragmentFavoriteBinding
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
-    private var _binding: FragmentHomeBinding? = null
+class FavoriteFragment : Fragment() {
+    private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModels<HomeViewModel>()
+    private val viewModel by viewModels<FavoriteViewModel>()
     private val productAdapter = ProductAdapter()
 
     override fun onCreateView(
@@ -21,27 +21,22 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getData()
-        binding.rvProducts.adapter = productAdapter
+        binding.rvFavorites.adapter = productAdapter
+        viewModel.getLocalProducts()
         observeData()
-
-        productAdapter.onClickItem={
-            viewModel.addProductLocal(it)
-        }
-
     }
 
     private fun observeData() {
-        viewModel.data.observe(viewLifecycleOwner) {
+        viewModel.favoriteList.observe(viewLifecycleOwner) {
             productAdapter.updateList(it)
         }
-
     }
 
     override fun onDestroyView() {

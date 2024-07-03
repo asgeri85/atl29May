@@ -9,6 +9,7 @@ import net.asgeri.atl29may.model.ProductResponse
 class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     private val productList = arrayListOf<ProductResponse>()
+    lateinit var onClickItem : (ProductResponse) -> Unit
 
 
     inner class ProductViewHolder(val itemProductBinding: ItemProductBinding) :
@@ -31,9 +32,13 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() 
         val imageAdapter = PagerAdapter()
         holder.itemProductBinding.viewPager2.adapter = imageAdapter
         holder.itemProductBinding.dotsIndicator.attachTo(holder.itemProductBinding.viewPager2)
-        item.images?.let {
+        /* item.images?.let {
             imageAdapter.updateList(it)
-        }
+        }*/
+
+       holder.itemProductBinding.buttonAddFavorites.setOnClickListener {
+           onClickItem(item)
+       }
 
     }
 

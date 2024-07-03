@@ -1,18 +1,30 @@
 package net.asgeri.atl29may.api
 
-import net.asgeri.atl29may.local.LocalDao
-import net.asgeri.atl29may.model.local.WordEntity
+import android.util.Log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import net.asgeri.atl29may.local.ProductDAO
+import net.asgeri.atl29may.model.ProductResponse
 import javax.inject.Inject
 
 class ProductRepository @Inject constructor(
     private val productService: ProductService,
-    val localDao: LocalDao
+    private val productDAO: ProductDAO
 ) {
 
     suspend fun getProducts() = productService.getAllProducts()
 
-    fun addWordEntity(wordEntity: WordEntity) = localDao.addWord(wordEntity)
+    fun addProductLocal(productResponse: ProductResponse) =
+        productDAO.addProductLocal(productResponse)
 
-    suspend fun getLocalData() = localDao.getWords()
+    suspend fun getAllLocalProducts() = flow {
+        try {
+            val response = productDAO.getLocalProducts()
 
+            emit(response)
+        } catch (e: Exception) {
+            Log.e("xeta", e.localizedMessage.toString())
+        }
+    }.flowOn(Dispatchers.IO)
 }

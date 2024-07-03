@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/favoriteFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -15,4 +15,9 @@
         android:name="net.asgeri.atl29may.ui.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="net.asgeri.atl29may.ui.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
 </navigation>

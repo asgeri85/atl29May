@@ -1,23 +1,25 @@
 package net.asgeri.atl29may.model
 
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "table_product")
 data class ProductResponse(
-    @SerializedName("category")
-    val category: Category?,
     @SerializedName("creationAt")
-    val creationAt: String?,
+    val creationAt: String,
     @SerializedName("description")
-    val description: String?,
+    val description: String,
+    @PrimaryKey
+    @ColumnInfo("product_id")
     @SerializedName("id")
-    val id: Int?,
-    @SerializedName("images")
-    val images: List<String>?,
+    val id: Int,
     @SerializedName("price")
-    val price: Int?,
+    val price: Int,
     @SerializedName("title")
-    val title: String?,
+    val title: String,
     @SerializedName("updatedAt")
-    val updatedAt: String?
+    val updatedAt: String
 )
